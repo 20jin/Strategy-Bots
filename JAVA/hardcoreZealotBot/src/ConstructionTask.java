@@ -1,3 +1,7 @@
+import java.util.Set;
+
+import bwapi.Color;
+import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Unit;
 import bwapi.UnitType;
@@ -10,7 +14,7 @@ public class ConstructionTask {
 		Unassigned,				///< Construction 일꾼이 미지정 되어있는 상태
 		Assigned,				///< Construction 일꾼이 지정 되었지만, Construction 일꾼이 건설을 착수하지는 않은 상태
 		UnderConstruction		///< Construction 일꾼이 지정 되어 건설 작업을 하고있는 상태
-	}
+	};
 	
 	/// 건물의 타입
 	private UnitType type;
@@ -48,7 +52,8 @@ public class ConstructionTask {
 	/// Construction Task 가 건설 작업 시작했는가 여부
 	private boolean underConstruction;
 
-	public ConstructionTask() {
+	public ConstructionTask()
+	{
 		desiredPosition = TilePosition.None;
 		finalPosition = TilePosition.None;
 		type = UnitType.Unknown;
@@ -61,9 +66,10 @@ public class ConstructionTask {
 		underConstruction = false; 
 	} 
 
-	public ConstructionTask(UnitType t, TilePosition desiredPosition) {
+	public ConstructionTask(UnitType t, TilePosition desiredPosition)
+	{
 		this.desiredPosition = desiredPosition;
-		finalPosition = desiredPosition;
+		finalPosition = TilePosition.None;
 		type = t;
 		buildingUnit = null;
 		constructionWorker = null;

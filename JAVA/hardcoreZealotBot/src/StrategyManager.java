@@ -52,10 +52,10 @@ public class StrategyManager {
         return instance;
     }
 
-	public StrategyManager() {
-		isFullScaleAttackStarted = false;
-		isInitialBuildOrderFinished = false;
-	}
+    public StrategyManager() {
+        isFullScaleAttackStarted = false;
+        isInitialBuildOrderFinished = false;
+    }
 
     /// 경기가 시작될 때 일회적으로 전략 초기 세팅 관련 로직을 실행합니다
     public void onStart() {

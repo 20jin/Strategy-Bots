@@ -1,12 +1,16 @@
-import bwapi.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import bwapi.Position;
+import bwapi.Race;
+import bwapi.TilePosition;
+import bwapi.Unit;
+import bwapi.UnitType;
 import bwta.BWTA;
 import bwta.BaseLocation;
 import bwta.Chokepoint;
 import bwta.Region;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /// 건설위치 탐색을 위한 class
 public class ConstructionPlaceFinder {
@@ -596,21 +600,26 @@ public class ConstructionPlaceFinder {
 	}
 
 	/// 건물 건설 가능 타일인지 여부를 리턴합니다
-	public final boolean isBuildableTile(final ConstructionTask b, int x, int y) {
+	public final boolean isBuildableTile(final ConstructionTask b, int x, int y)
+	{
 		TilePosition tp = new TilePosition(x, y);
-		if (!tp.isValid()) {
+		if (!tp.isValid())
+		{
 			return false;
 		}
 
 		// 맵 데이터 뿐만 아니라 빌딩 데이터를 모두 고려해서 isBuildable 체크
 		//if (BWAPI::Broodwar->isBuildable(x, y) == false)
-		if (!MyBotModule.Broodwar.isBuildable(x, y, true)) {
+		if (MyBotModule.Broodwar.isBuildable(x, y, true) == false)
+		{
 			return false;
 		}
 
 		// constructionWorker 이외의 다른 유닛이 있으면 false를 리턴한다
-		for (Unit unit : MyBotModule.Broodwar.getUnitsOnTile(x, y)) {
-			if ((b.getConstructionWorker() != null) && (unit != b.getConstructionWorker())) {
+		for (Unit unit : MyBotModule.Broodwar.getUnitsOnTile(x, y))
+		{
+			if ((b.getConstructionWorker() != null) && (unit != b.getConstructionWorker()))
+			{
 				return false;
 			}
 		}
@@ -619,11 +628,24 @@ public class ConstructionPlaceFinder {
 	}
 
 	/// 건물 건설 예정 타일로 예약해서, 다른 건물을 중복해서 짓지 않도록 합니다
-	public void reserveTiles(TilePosition position, int width, int height) {
+	public void reserveTiles(TilePosition position, int width, int height)
+	{
+		/*int rwidth = reserveMap.size();
+		int rheight = reserveMap.get(0).size();
+		for (int x = position.getX(); x < position.getX() + width && x < rwidth; x++)
+		{
+			for (int y = position.getY() ; y < position.getY() + height && y < rheight; y++)
+			{
+				reserveMap.get(x).set(y, true);
+				// C++ : reserveMap[x][y] = true;
+			}
+		}*/
 		int rwidth = reserveMap.length;
 		int rheight = reserveMap[0].length;
-		for (int x = position.getX(); x < position.getX() + width && x < rwidth; x++) {
-			for (int y = position.getY() ; y < position.getY() + height && y < rheight; y++) {
+		for (int x = position.getX(); x < position.getX() + width && x < rwidth; x++)
+		{
+			for (int y = position.getY() ; y < position.getY() + height && y < rheight; y++)
+			{
 				//reserveMap.get(x).set(y, true);
 				reserveMap[x][y] = true;
 				// C++ : reserveMap[x][y] = true;
@@ -632,7 +654,8 @@ public class ConstructionPlaceFinder {
 	}
 	
 	/// 건물 건설 예정 타일로 예약했던 것을 해제합니다
-	public void freeTiles(TilePosition position, int width, int height) {
+	public void freeTiles(TilePosition position, int width, int height)
+	{
 		/*int rwidth = reserveMap.size();
 		int rheight = reserveMap.get(0).size();
 
@@ -647,7 +670,8 @@ public class ConstructionPlaceFinder {
 		int rwidth = reserveMap.length;
 		int rheight = reserveMap[0].length;
 
-		for (int x = position.getX(); x < position.getX() + width && x < rwidth; x++) {
+		for (int x = position.getX(); x < position.getX() + width && x < rwidth; x++)
+		{
 			for (int y = position.getY() ; y < position.getY() + height && y < rheight; y++)
 			{
 				//reserveMap.get(x).set(y, false);
@@ -658,7 +682,8 @@ public class ConstructionPlaceFinder {
 	}
 
 	// 건물 건설 예약되어있는 타일인지 체크
-	public final boolean isReservedTile(int x, int y) {
+	public final boolean isReservedTile(int x, int y)
+	{
 		/*int rwidth = reserveMap.size();
 		int rheight = reserveMap.get(0).size();
 		if (x < 0 || y < 0 || x >= rwidth || y >= rheight)
@@ -683,7 +708,8 @@ public class ConstructionPlaceFinder {
 	}
 
 	/// (x, y) 가 BaseLocation 과 Mineral / Geyser 사이의 타일에 해당하는지 여부를 리턴합니다
-	public final boolean isTilesToAvoid(int x, int y) {
+	public final boolean isTilesToAvoid(int x, int y)
+	{
 		for (TilePosition t : tilesToAvoid) {
 			if (t.getX() == x && t.getY() == y) {
 				return true;
@@ -696,12 +722,14 @@ public class ConstructionPlaceFinder {
 	/// BaseLocation 과 Mineral / Geyser 사이의 타일들을 찾아 _tilesToAvoid 에 저장합니다<br>
 	/// BaseLocation 과 Geyser 사이, ResourceDepot 건물과 Mineral 사이 공간으로 건물 건설 장소를 정하면<br> 
 	/// 일꾼 유닛들이 장애물이 되어서 건설 시작되기까지 시간이 오래걸리고, 지어진 건물이 장애물이 되어서 자원 채취 속도도 느려지기 때문에, 이 공간은 건물을 짓지 않는 공간으로 두기 위함입니다
-	public void setTilesToAvoid() {
+	public void setTilesToAvoid()
+	{
 		// ResourceDepot 건물의 width = 4 타일, height = 3 타일
 		// Geyser 의            width = 4 타일, height = 2 타일
 		// Mineral 의           width = 2 타일, height = 1 타일
 
-		for (BaseLocation base : BWTA.getBaseLocations()) {
+		for (BaseLocation base : BWTA.getBaseLocations())
+		{
 			// Island 일 경우 건물 지을 공간이 절대적으로 좁기 때문에 건물 안짓는 공간을 두지 않는다
 			if (base.isIsland()) continue;
 			if (BWTA.isConnected(base.getTilePosition(), InformationManager.Instance().getMainBaseLocation(MyBotModule.Broodwar.self()).getTilePosition()) == false) continue;
@@ -713,7 +741,8 @@ public class ConstructionPlaceFinder {
 			int by3 = base.getTilePosition().getY() + 3;
 
 			// BaseLocation 과 Geyser 사이의 타일을 BWTA::getShortestPath 를 사용해서 구한 후 _tilesToAvoid 에 추가
-			for (Unit geyser : base.getGeysers()) {
+			for (Unit geyser : base.getGeysers())
+			{
 				TilePosition closeGeyserPosition = geyser.getInitialTilePosition();
 
 				// dimensions of the closest geyser
@@ -818,7 +847,8 @@ public class ConstructionPlaceFinder {
 			}
 
 			// BaseLocation 과 Mineral 사이의 타일을 BWTA::getShortestPath 를 사용해서 구한 후 _tilesToAvoid 에 추가
-			for (Unit mineral : base.getMinerals()) {
+			for (Unit mineral : base.getMinerals())
+			{
 				TilePosition closeMineralPosition = mineral.getInitialTilePosition();
 
 				// dimensions of the closest mineral
