@@ -185,22 +185,22 @@ public class StrategyManager {
 					}
 					landFlag = false;
 				}
-				else if(MyBotModule.Broodwar.mapFileName().equals("(4)OverWatch.scx")){
+				else if(MyBotModule.Broodwar.mapFileName().equals("(4)Spirit.scx")){
 					if(MyBotModule.Broodwar.self().getStartLocation().getX() == 117 &&
 					   MyBotModule.Broodwar.self().getStartLocation().getY() == 7){
-						ocBarrack.land(new TilePosition(104,15));
+						ocBarrack.land(new TilePosition(102,9));
 					}
 					else if(MyBotModule.Broodwar.self().getStartLocation().getX() == 7 &&
-							MyBotModule.Broodwar.self().getStartLocation().getY() == 117){
-						ocBarrack.land(new TilePosition(16,112));
+							MyBotModule.Broodwar.self().getStartLocation().getY() == 116){
+						ocBarrack.land(new TilePosition(21,118));
 					}
 					else if(MyBotModule.Broodwar.self().getStartLocation().getX() == 7 &&
-							MyBotModule.Broodwar.self().getStartLocation().getY() == 7){
-						ocBarrack.land(new TilePosition(11,17));
+							MyBotModule.Broodwar.self().getStartLocation().getY() == 6){
+						ocBarrack.land(new TilePosition(4,28));
 					}
 					else if(MyBotModule.Broodwar.self().getStartLocation().getX() == 117 &&
 							MyBotModule.Broodwar.self().getStartLocation().getY() == 117){
-						ocBarrack.land(new TilePosition(106,105));
+						ocBarrack.land(new TilePosition(112,101));
 					}
 					landFlag = false;
 				}
@@ -246,34 +246,34 @@ public class StrategyManager {
 				secondSupply = new TilePosition(125,102);
 			}
 		}
-		else if(MyBotModule.Broodwar.mapFileName().equals("(4)OverWatch.scx")){
+		else if(MyBotModule.Broodwar.mapFileName().equals("(4)Spirit.scx")){
 			if(MyBotModule.Broodwar.self().getStartLocation().getX() == 117 &&
 			   MyBotModule.Broodwar.self().getStartLocation().getY() == 7){
 				//1시
-				firstBarrack = new TilePosition(104,15);
-				firstSupply = new TilePosition(108,15);			
-				secondSupply = new TilePosition(110,13);	
+				firstBarrack = new TilePosition(102,9);
+				firstSupply = new TilePosition(101,7);			
+				secondSupply = new TilePosition(98,7);	
 			}
 			else if(MyBotModule.Broodwar.self().getStartLocation().getX() == 7 &&
-					MyBotModule.Broodwar.self().getStartLocation().getY() == 117){
+					MyBotModule.Broodwar.self().getStartLocation().getY() == 116){
 				//7시
-				firstBarrack = new TilePosition(16,112);
-				firstSupply = new TilePosition(19,110);			
-				secondSupply = new TilePosition(22,108);	
+				firstBarrack = new TilePosition(21,118);
+				firstSupply = new TilePosition(25,120);			
+				secondSupply = new TilePosition(28,121);	
 			}
 			else if(MyBotModule.Broodwar.self().getStartLocation().getX() == 7 &&
-					MyBotModule.Broodwar.self().getStartLocation().getY() == 7){
+					MyBotModule.Broodwar.self().getStartLocation().getY() == 6){
 				//11시
-				firstBarrack = new TilePosition(11,17);
-				firstSupply = new TilePosition(15,19); 
-				secondSupply = new TilePosition(18,21);	
+				firstBarrack = new TilePosition(4,28);
+				firstSupply = new TilePosition(7,26); 
+				secondSupply = new TilePosition(10,26);	
 			}
 			else if(MyBotModule.Broodwar.self().getStartLocation().getX() == 117 &&
 					MyBotModule.Broodwar.self().getStartLocation().getY() == 117){
 				//5시
-				firstBarrack = new TilePosition(106,105);
-				firstSupply = new TilePosition(110,107);
-				secondSupply = new TilePosition(113,108);
+				firstBarrack = new TilePosition(112,101);
+				firstSupply = new TilePosition(116,100);
+				secondSupply = new TilePosition(118,98);
 			}
 		}
 		
